@@ -26,6 +26,7 @@ public class TextAreaDemo extends JFrame implements ActionListener {
 		
 		this.add(textField, BorderLayout.NORTH);
 		
+		// textArea 영역을 넘어서까지 문자열이 추가되면 스크롤 바를 만든다
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -45,6 +46,7 @@ public class TextAreaDemo extends JFrame implements ActionListener {
 		textArea.append(text + "\n");
 		
 		textField.selectAll();
+		// textArea에 추가된 문자열의 맨뒤에 깜빡이는 커서 추가
 		textArea.setCaretPosition(textArea.getDocument().getLength());
 	}
 

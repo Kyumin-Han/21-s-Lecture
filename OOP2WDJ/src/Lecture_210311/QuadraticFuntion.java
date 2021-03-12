@@ -46,10 +46,18 @@ public class QuadraticFuntion extends JPanel implements ActionListener {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		// Graphics2D에서 개체를 부드럽게 그리기 위한 RenderingHints 지정
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		// x축 그리기
+		// (시작 x좌표, 시작 y좌표, 끝 x좌표, 끝 y좌표)
 		g2.drawLine(100, 200, 500, 200);
+		
+		// y축 그리기
+		// (시작 x좌표, 시작 y좌표, 끝 x좌표, 끝 y좌표)
 		g2.drawLine(300, 0, 300, 400);
 		
+		// 찍어줄 점의 색깔을 빨간색으로 지정
 		g2.setPaint(Color.RED);
 		System.out.println("!aCE" + aCE + "bCE" + bCE + "cCE" + cCE);
 		
@@ -57,6 +65,8 @@ public class QuadraticFuntion extends JPanel implements ActionListener {
 		{
 			int x = i;
 			int y = (int) (aCE * x * x -bCE * x + cCE);
+			
+			// 점을 이차함수에서 계산된 x와 y좌표에 찍어주기 위해서 그려질 점의 좌표와 크기를 지정
 			Shape s = new Ellipse2D.Float(300 + x - 2, 200 - y - 2, 4, 4);
 			g2.fill(s);
 		}
