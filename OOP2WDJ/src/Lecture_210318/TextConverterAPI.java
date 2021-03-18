@@ -31,8 +31,8 @@ public class TextConverterAPI extends JFrame implements ActionListener{
 	private JButton cancelBtn;
 	private JTextArea textIn;
 	private JTextArea textOut;
-	private final String CLIENT_ID = "izMq4AIgO9e0TzBb0mbh";
-	private final String CLIENT_SECRET = "fmlqAWB7fl";
+	private final String CLIENT_ID = " ";
+	private final String CLIENT_SECRET = " ";
 
 	public TextConverterAPI() {
 		this.setTitle("텍스트 변환");
