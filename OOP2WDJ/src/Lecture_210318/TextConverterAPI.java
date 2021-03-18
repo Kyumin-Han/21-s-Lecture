@@ -31,6 +31,7 @@ public class TextConverterAPI extends JFrame implements ActionListener{
 	private JButton cancelBtn;
 	private JTextArea textIn;
 	private JTextArea textOut;
+	// 사용자 클라이언트 ID, SECRET을 넣어야 함
 	private final String CLIENT_ID = " ";
 	private final String CLIENT_SECRET = " ";
 
