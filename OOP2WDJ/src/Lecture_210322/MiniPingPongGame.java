@@ -1,6 +1,8 @@
 package Lecture_210322;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -8,15 +10,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MiniPingPongGame extends JPanel implements KeyListener{
 	private Ball ball;
 	protected Racquet racquet1;
 	protected Racquet racquet2;
+	protected JLabel scoreLabel1, scoreLabel2, scoreLabel3;
 	
 	public MiniPingPongGame() {
-		
 		ball = new Ball(this, Color.RED);
 		this.setBackground(Color.GREEN);
 		
@@ -24,8 +27,21 @@ public class MiniPingPongGame extends JPanel implements KeyListener{
 		// 패널에 접근할 수 있어야 하기 때문에 생성자에 이 객체를 준다
 		racquet1 = new Racquet(this, 10, 150, Color.BLUE, 1);
 		racquet2 = new Racquet(this, 560, 150, Color.YELLOW, 2);
-		this.setFocusable(true);
+		scoreLabel1 = new JLabel("0");
+		scoreLabel2 = new JLabel("0");
+		scoreLabel3 = new JLabel(" : ");
+		
+		scoreLabel1.setFont(new Font("bold", 40, 40));
+		scoreLabel2.setFont(new Font("bold", 40, 40));
+		scoreLabel3.setFont(new Font("bold", 40, 40));
+		
+		
+		this.add(scoreLabel1);
+		this.add(scoreLabel3);
+		this.add(scoreLabel2);
+		this.setLayout(new FlowLayout());
 		this.addKeyListener(this);
+		this.setFocusable(true);
 	}
 	
 	@Override
@@ -35,12 +51,13 @@ public class MiniPingPongGame extends JPanel implements KeyListener{
 		ball.draw(g2);
 		racquet1.draw(g2);
 		racquet2.draw(g2);
+		
 	}
 	
 	public void move() {
 		ball.move();
 		racquet1.move();
-		racquet2.move();
+		racquet2.move2();
 	}
 	
 	public static void main(String[] args) {
@@ -84,7 +101,7 @@ public class MiniPingPongGame extends JPanel implements KeyListener{
 
 class Ball {
 	private static final int RADIUS = 20;
-	private int x = 0, y = 0, xSpeed = 1, ySpeed = 1;
+	private int x = 0, y = 0, xSpeed = 6, ySpeed = 1;
 	private MiniPingPongGame game;
 	private Color color;
 	
@@ -94,12 +111,22 @@ class Ball {
 	}
 	
 	public void move() {
-		if(x + xSpeed < 0) 
-			xSpeed = 1;
+		if(x + xSpeed < 0)
+		{
+			xSpeed = 6;
+			int y = Integer.parseInt(game.scoreLabel2.getText());
+			game.scoreLabel2.setText(String.valueOf(++y));
+		}
+			
 		if(x + xSpeed > game.getWidth() - 2 * RADIUS)
-			xSpeed = -1;
+		{
+			xSpeed = -6;
+			int y = Integer.parseInt(game.scoreLabel1.getText());
+			game.scoreLabel1.setText(String.valueOf(++y));
+		}
+						
 		if(y + ySpeed < 0)
-			ySpeed = 1;
+			ySpeed = 6;
 		if(y + ySpeed > game.getHeight() - 2 * RADIUS)
 			ySpeed = -1;
 		if(collision())
@@ -127,6 +154,7 @@ class Racquet {
 	private static final int HEIGHT = 80;
 	private int x = 0, y = 0;
 	private int ySpeed = 0;
+	private int ySpeed2 = 0;
 	private MiniPingPongGame game;
 	private Color color;
 	private int racquetCount;
@@ -145,6 +173,13 @@ class Racquet {
 			y += ySpeed;
 	}
 	
+	public void move2() {
+		if(y + ySpeed2 > 0 && y + ySpeed < game.getHeight() - HEIGHT)
+		{
+			y += ySpeed2;
+		}
+	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
@@ -159,9 +194,9 @@ class Racquet {
 		if(racquetCount == 2) 
 		{
 			if(e.getKeyCode() == KeyEvent.VK_UP)
-				ySpeed = -3;
+				ySpeed2 = -3;
 			else if(e.getKeyCode() == KeyEvent.VK_DOWN)
-				ySpeed = 3;
+				ySpeed2 = 3;
 		}
 		else
 		{
@@ -176,5 +211,6 @@ class Racquet {
 	// 키를 뗐을때 움직이지 않도록 한다
 	public void keyReleased(KeyEvent e) {
 		ySpeed = 0;
+		ySpeed2 = 0;
 	}
 }
