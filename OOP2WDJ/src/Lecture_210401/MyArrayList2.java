@@ -54,7 +54,18 @@ public class MyArrayList2<T> {
     }
 
     public void remove(int idx) {
-        
+        // idx보다 큰 요소들을 왼쪽으로 한칸씩 당기고 전체 배열의 크기를 하나 줄여준다
+    	if(idx < size) {
+    		for(int i = idx + 1; i < size; i++)
+    		{
+    			arr[i - 1] = arr[i];
+    		}
+    		
+    		size--;
+    	} 
+    	else {
+    		System.out.println("올바른 인덱스 값을 입력하세요!");
+    	}
     }
 
     public T get(int idx) {
