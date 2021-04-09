@@ -125,7 +125,7 @@ public class CollectionTest {
 
 	public static void lotto() {
 		//		Set<Integer> lottoNums = new HashSet<>();
-		MyComparator comp = new MyComparator();
+//		MyComparator comp = new MyComparator();
 		Set<Integer> lottoNums = new TreeSet<>();
 		//		Set<Integer> lottoNums = new LinkedHashSet<>();
 
@@ -143,6 +143,7 @@ public class CollectionTest {
 			//		System.out.print(lottoNums);
 
 			for(Integer ln : lottoNums) {
+				
 				System.out.print(ln + " ");
 			}
 
