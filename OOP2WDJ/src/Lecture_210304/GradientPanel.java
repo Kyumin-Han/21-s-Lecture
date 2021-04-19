@@ -18,7 +18,7 @@ public class GradientPanel extends MyPanel {
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		GradientPaint gp = new GradientPaint(0, 10, Color.WHITE, 0, 70, Color.RED);
-		// GradientPaint에서의 좌표는 도형 내에서의 좌표인다
+		// GradientPaint에서의 좌표는 도형 내에서의 좌표이다
 		
 		for(Shape s : shapeArray) {
 			g2.setPaint(gp);
