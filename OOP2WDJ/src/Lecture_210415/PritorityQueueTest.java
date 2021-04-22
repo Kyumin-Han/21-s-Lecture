@@ -1,4 +1,4 @@
-package Leture_210415;
+package Lecture_210415;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
