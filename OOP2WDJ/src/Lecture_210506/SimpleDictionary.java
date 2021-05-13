@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 	// Map객체를 단어장 구현으로 사용
 	// key는 한글단어, value는 대응되는 영어 단어를 저장한다
 	private Map<String, String> words = new HashMap<>();
+	private static final String DIC_FILE_NAME = "dict.props";
 
 	public SimpleDictionary() {
 		// Panel의 기본 레이아웃은 FlowLayout
@@ -40,7 +42,21 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 		this.setPreferredSize(new Dimension(600, 50));
 		
 		// 파일에 key=value 형태로 저장된 엔트리들을 읽어서, words를 구성하기
+		
+		buildDictionaryFromFile();
 	}
+	
+	private void buildDictionaryFromFile() {
+		// Properties는
+		// key, value의 타입이 각각 String, String으로 고정된 일종의 맵이다. 
+		Properties props = new Properties();
+//		props.put("사과", "apple");
+		
+		
+		// 파일에서 읽어서 props 객체의 <key, value>쌍을 구성할 수 있다.
+	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
