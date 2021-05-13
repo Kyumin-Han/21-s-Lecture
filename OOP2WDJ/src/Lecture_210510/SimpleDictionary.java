@@ -25,6 +25,7 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 	private JTextField inputField = new JTextField(30);
 	private JButton searchBtn = new JButton("검색");
 	private JButton addBtn = new JButton("추가");
+	public static final String driverClassName = "org.mariadb.jdbc.Driver";
 	
 	
 	// Map객체를 단어장 구현으로 사용
@@ -38,6 +39,7 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 		this.add(searchBtn);
 		this.add(addBtn);
 		
+		
 		// 각 버튼에 글릭 이벤트가 발생 했을때 처리할 리스너를 지정
 		searchBtn.addActionListener(this);
 		addBtn.addActionListener(this);
@@ -45,8 +47,15 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 		this.setPreferredSize(new Dimension(600, 50));
 		
 		// 파일에 key=value 형태로 저장된 엔트리들을 읽어서, words를 구성하기
+		// DB에서 레코드를 읽고, 그 레코드를 이용해서 dict맵을 구성한다.
+		
+		buildDictionaryFromDB();
 		
 		buildDictionaryFromFile();
+	}
+	
+	private void buildDictionaryFromDB() {
+		
 	}
 	
 	private void buildDictionaryFromFile() {
@@ -103,17 +112,26 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 			// 입력된 단어를 추출
 			// JOptionPane.showInputDialog() 메서드를 호출해서 추가할 영어 단어를 입력 받는다
 			// words.put(입력 필드에 입력된 단어, inputDialog에 입력된 단어)
+			// DB에 <key, value>의 쌍을 하나의 레코드로 저장한다.
 			
 			String value = JOptionPane.showInputDialog(this, key, "에 대응 되는 영어 단어를 입력하세요.");
 			
 			if(value.trim().length() == 0) return;
 			words.put(key, value);
+			addToDB(key, value);
 			addWordToFile(key, value);
 			JOptionPane.showMessageDialog(this, "[" + value + "]" + "영어 단어가 추가되었습니다.", key, JOptionPane.INFORMATION_MESSAGE);
 		}
 		
-		inputField.setText("");
+//		inputField.setText("");
 		
+	}
+	
+	private void addToDB(String key, String value) {
+		// 1. Database 연결: 먼저 JDBC Driver를 로딩 해야 한다
+		// 2. select 문 수행
+		// 3. select 문의 수행으로 반환된 레코드를 이용해 dict Map 객체를 구성
+		// 4. Database 연결 해제.
 	}
 	
 	private void addWordToFile(String key, String value) {
