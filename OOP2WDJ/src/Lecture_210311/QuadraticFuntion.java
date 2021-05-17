@@ -59,7 +59,7 @@ public class QuadraticFuntion extends JPanel implements ActionListener {
 		
 		// 찍어줄 점의 색깔을 빨간색으로 지정
 		g2.setPaint(Color.RED);
-		System.out.println("!aCE" + aCE + "bCE" + bCE + "cCE" + cCE);
+		System.out.println("aCE: " + aCE + "bCE: " + bCE + "cCE: " + cCE);
 		
 		for(int i = -20; i < 20; i++)
 		{
