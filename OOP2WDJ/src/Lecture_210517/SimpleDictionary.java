@@ -191,6 +191,7 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 
 			if(value.trim().length() == 0) return;
 			words.put(key, value);
+			words.put(value, key);
 			addToDB(key, value);
 			addWordToFile(key, value);
 			JOptionPane.showMessageDialog(this, "[" + value + "]" + "영어 단어가 추가되었습니다.", key, JOptionPane.INFORMATION_MESSAGE);
@@ -201,10 +202,25 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 	}
 
 	private void addToDB(String key, String value) {
-		// 1. Database 연결: 먼저 JDBC Driver를 로딩 해야 한다
-		// 2. select 문 수행
-		// 3. select 문의 수행으로 반환된 레코드를 이용해 dict Map 객체를 구성
-		// 4. Database 연결 해제.
+		// 1.드라이버 클래스는 딱 한번만 메모리에 적재하면 된다
+		//   이미 객체가 생성될 때 생성자에서 적재 되었으므로 이 메서드에서 적재 할 필요는 없다
+		// 2.데이터베이스에 연결한다.
+		// 3.SQL문 실행
+		// 4.데이터베이스 연결을 해제한다
+		
+		try(Connection con = DriverManager.getConnection(DB_SERVER_URL, DB_USER, DB_USER_PW)) {
+			String sql = "insert into dict values(?, ?)";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			
+			// ? 자리에 값을 채운 후에, 서버에게 실행 준비된 SQL문을 실행라고 요청해야한다
+			pstmt.setString(1, key);
+			pstmt.setString(2, value);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	private void addWordToFile(String key, String value) {
