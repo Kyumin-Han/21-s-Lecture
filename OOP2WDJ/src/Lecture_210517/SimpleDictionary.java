@@ -193,7 +193,7 @@ public class SimpleDictionary extends JPanel implements ActionListener {
 			words.put(key, value);
 			words.put(value, key);
 			addToDB(key, value);
-			addWordToFile(key, value);
+//			addWordToFile(key, value);
 			JOptionPane.showMessageDialog(this, "[" + value + "]" + "영어 단어가 추가되었습니다.", key, JOptionPane.INFORMATION_MESSAGE);
 		}
 
