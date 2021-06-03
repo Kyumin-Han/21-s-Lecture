@@ -26,7 +26,7 @@ public class BookListViewer extends JFrame implements ActionListener {
 
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/oop", "root", "110419");
+		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/oop", "root", "");
 		String sql = "select * from books order by book_id desc";
 		PreparedStatement pstmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		rs = pstmt.executeQuery();
